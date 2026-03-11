@@ -1,0 +1,35 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+
+# Rust compiled targets (these are HUGE - multiple GBs each)
+src-tauri/target/
+src-tauri/target2/
+src-tauri/target3/
+src-tauri/target4/
+src-tauri/target5/
+src-tauri/target6/
+src-tauri/target7/
+src-tauri/target8/
+src-tauri/target_alt/
+
+# Rust generated
+src-tauri/gen/
+
+# Error/debug log files
+src-tauri/*.log
+src-tauri/*.txt
+src-tauri/2
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Tauri dev artifacts
+WixTools/

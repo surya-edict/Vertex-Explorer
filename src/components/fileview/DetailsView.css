@@ -1,0 +1,205 @@
+.details-view {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+}
+
+.details-header {
+    display: flex;
+    align-items: center;
+    height: 28px;
+    background: color-mix(in srgb, var(--bg-surface) 62%, transparent);
+    border-bottom: 1px solid var(--border-subtle);
+    flex-shrink: 0;
+    padding: 0 10px;
+    border-radius: 8px;
+    margin: 6px 16px 4px;
+}
+
+.details-header-cell {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 0 5px;
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    color: var(--text-muted);
+    cursor: pointer;
+    white-space: nowrap;
+    flex-shrink: 0;
+    user-select: none;
+    transition: color var(--transition-fast);
+}
+
+.details-header-cell:hover {
+    color: var(--text-secondary);
+}
+
+.details-header-cell--sorted {
+    color: var(--accent);
+}
+
+.details-body {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    overflow-anchor: none;
+    position: relative;
+    transform: translateZ(0);
+    -webkit-overflow-scrolling: touch;
+    opacity: 1;
+    transition: opacity 230ms cubic-bezier(0.16, 1, 0.3, 1), transform 230ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.app-root[data-layout-phase='fade-out'] .details-body {
+    opacity: 0;
+    transform: translateY(5px);
+}
+
+.app-root[data-layout-phase='fade-in'] .details-body {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.details-marquee {
+    position: absolute;
+    border: 1px solid color-mix(in srgb, var(--accent) 50%, rgba(42, 140, 255, 0.5));
+    background: color-mix(in srgb, var(--accent) 12%, rgba(42, 140, 255, 0.1));
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1), inset 0 0 0 1px color-mix(in srgb, var(--accent) 15%, rgba(255, 255, 255, 0.2));
+    pointer-events: none;
+    border-radius: 12px;
+    backdrop-filter: blur(2px);
+    z-index: 20;
+}
+
+.details-row--cut {
+    opacity: 0.4;
+    animation: pulseCut 2s infinite ease-in-out;
+}
+
+.details-row--copy {
+    opacity: 0.7;
+    animation: pulseCopy 3s infinite ease-in-out;
+}
+
+.details-row {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 6px;
+    padding: 0 6px;
+    contain: content;
+    content-visibility: auto;
+    contain-intrinsic-size: 100% 30px;
+    width: max-content;
+}
+
+.details-row:hover {
+    background: var(--bg-hover);
+}
+
+.details-row--selected {
+    background: linear-gradient(90deg, var(--accent-muted), transparent);
+    border-left: 2px solid var(--accent);
+}
+
+.details-row--selected:hover {
+    background: linear-gradient(90deg, rgba(45, 205, 195, 0.24), rgba(255, 255, 255, 0.03));
+}
+
+.details-row--hidden {
+    opacity: 0.58;
+}
+
+.details-row--cut {
+    opacity: 0.5;
+}
+
+.details-row--droptarget {
+    background: var(--accent-muted) !important;
+    box-shadow: 0 0 0 1px var(--accent), 0 0 16px rgba(45, 205, 195, 0.3);
+}
+
+.details-cell {
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    font-size: inherit;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex-shrink: 0;
+}
+
+.details-cell--name {
+    color: var(--text-primary);
+    gap: 8px;
+    flex: 0 0 auto;
+}
+
+.details-tag-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: inline-block;
+    margin-right: 2px;
+}
+
+.details-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex: 1;
+}
+
+.rename-input {
+    flex: 1;
+    background: rgba(0, 0, 0, 0.22);
+    border: 1px solid var(--accent);
+    border-radius: 6px;
+    color: var(--text-primary);
+    font-size: var(--font-size);
+    font-family: var(--font-family);
+    padding: 2px 6px;
+    outline: none;
+    min-width: 0;
+}
+
+.details-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.spinner {
+    width: 24px;
+    height: 24px;
+    border: 2px solid var(--border);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+}
+
+.details-error {
+    padding: 24px;
+    color: var(--error);
+    font-size: calc(var(--font-size) - 1px);
+}
+
+/* ─── Grouped Details View ─────────────────────────────────────── */
+.details-body--grouped {
+    overflow-y: auto;
+    padding: 0 4px 8px;
+}
+
+.details-group {
+    margin-bottom: 4px;
+}
+
+.details-group .details-row {
+    position: relative;
+}

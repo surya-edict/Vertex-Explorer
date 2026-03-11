@@ -1,0 +1,118 @@
+.addressbar {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    flex: 1;
+    min-width: 0;
+    height: 30px;
+    padding: 0 6px;
+    background: color-mix(in srgb, var(--bg-surface) 90%, transparent);
+    border: 1px solid var(--border-subtle);
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) inset;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
+}
+
+.addressbar:hover {
+    background: color-mix(in srgb, var(--bg-hover) 80%, transparent);
+    border-color: var(--border);
+}
+
+.addressbar:focus-within {
+    border-color: var(--border-focus);
+    box-shadow: 0 0 0 1px var(--border-focus), 0 1px 2px rgba(0, 0, 0, 0.1) inset;
+}
+
+.addressbar-nav-btn {
+    width: 28px;
+    height: 26px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    border-radius: 6px;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.addressbar-nav-btn:hover:not(:disabled) {
+    background: var(--bg-hover);
+    color: var(--text-primary);
+}
+
+.addressbar-nav-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.addressbar-path {
+    flex: 1;
+    min-width: 0;
+    cursor: text;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    position: relative;
+}
+
+.addressbar-input {
+    width: 100%;
+    background: none;
+    border: none;
+    outline: none;
+    color: var(--text-primary);
+    font-size: 13px;
+    font-family: var(--font-family);
+    padding: 0 6px;
+}
+
+.addressbar-crumbs {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    width: 100%;
+}
+
+.addressbar-crumb-group {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    flex-shrink: 1;
+}
+
+.addressbar-crumb {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 12px;
+    font-family: var(--font-family);
+    cursor: pointer;
+    padding: 3px 6px;
+    border-radius: 6px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 170px;
+    transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.addressbar-crumb:last-child {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.addressbar-crumb:hover {
+    background: var(--bg-hover);
+    color: var(--text-primary);
+}
+
+.addressbar-sep {
+    color: var(--text-muted);
+    font-size: 11px;
+    padding: 0 1px;
+    flex-shrink: 0;
+}

@@ -1,0 +1,358 @@
+.homeview {
+    padding: 0;
+    overflow-y: auto;
+    height: 100%;
+    user-select: none;
+    display: flex;
+    flex-direction: column;
+    scroll-behavior: smooth;
+}
+
+.homeview-content-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 28px 28px;
+    gap: 40px;
+    min-height: min-content;
+}
+
+.panel[data-transparent="true"] .homeview-content-wrapper {
+    padding-bottom: 120px;
+}
+
+/* Parallax Float — icon floats more, text floats less */
+.parallax-icon {
+    transition: transform 0.15s ease-out;
+    transform: translate(calc(var(--mx, 0) * 14px),
+            calc(var(--my, 0) * 14px));
+    will-change: transform;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
+}
+
+.parallax-text {
+    transition: transform 0.2s ease-out;
+    transform: translate(calc(var(--mx, 0) * -4px),
+            calc(var(--my, 0) * -4px));
+    will-change: transform;
+}
+
+/* Sections */
+.homeview-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.homeview-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: transparent;
+    border: none;
+    padding: 4px 0;
+    cursor: pointer;
+    text-align: center;
+    width: fit-content;
+    color: var(--text-secondary);
+    transition: color 0.15s ease;
+    margin: 0 auto;
+}
+
+.homeview-section-header:hover {
+    color: var(--text-primary);
+}
+
+.homeview-chevron {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.5;
+    transition: opacity 0.15s ease;
+}
+
+.homeview-section-header:hover .homeview-chevron {
+    opacity: 1;
+}
+
+.homeview-heading {
+    font-size: 16px;
+    font-weight: 800;
+    color: inherit;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+}
+
+.homeview-heading-row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+/* Quick Access — simple inline buttons */
+.homeview-quick-access {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.homeview-qa-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 14px;
+    border: none;
+    border-radius: 6px;
+    background: transparent;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    font-family: inherit;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.homeview-qa-item:hover {
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--text-primary);
+}
+
+.homeview-qa-item:active {
+    background: rgba(255, 255, 255, 0.09);
+}
+
+/* Recent Places */
+.homeview-recents-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.homeview-recent-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 7px 20px;
+    border-radius: 6px;
+    text-align: center;
+    border: none;
+    background: transparent;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.15s ease;
+    width: 100%;
+    max-width: 500px;
+}
+
+.homeview-recent-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.homeview-recent-icon {
+    color: var(--text-muted);
+    flex-shrink: 0;
+}
+
+.homeview-recent-info {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 2px;
+}
+
+.homeview-recent-name {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.homeview-recent-path {
+    font-size: 11.5px;
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 500;
+}
+
+.homeview-recent-remove {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    border-radius: 4px;
+    opacity: 0;
+    transition: opacity 0.15s ease, background 0.15s ease, color 0.15s ease;
+}
+
+.homeview-recent-item:hover .homeview-recent-remove {
+    opacity: 1;
+}
+
+.homeview-recent-remove:hover {
+    background: rgba(239, 68, 68, 0.15);
+    color: #ef4444;
+}
+
+.homeview-clear-btn {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-muted);
+    background: transparent;
+    border: none;
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: color 0.15s ease, background 0.15s ease;
+}
+
+.homeview-clear-btn:hover {
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.06);
+}
+
+/* Libraries (Folders) */
+.homeview-folders-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+}
+
+.homeview-folder-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 18px;
+    min-width: 120px;
+    border: none;
+    border-radius: 8px;
+    background: transparent;
+    color: var(--text-secondary);
+    cursor: pointer;
+    text-align: center;
+    font-family: inherit;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.homeview-folder-card:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-primary);
+}
+
+.homeview-folder-card:active {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.homeview-folder-name {
+    font-size: 15.5px;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Devices and Drives */
+.homeview-drives-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+}
+
+.homeview-drive-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 14px;
+    padding: 16px 20px;
+    min-width: 260px;
+    border: none;
+    border-radius: 8px;
+    background: transparent;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.homeview-drive-card:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-primary);
+}
+
+.homeview-drive-card:active {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.homeview-drive-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    min-width: 0;
+    width: 100%;
+}
+
+.homeview-drive-label {
+    font-size: 15.5px;
+    font-weight: 700;
+    color: var(--text-primary);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.homeview-drive-bar {
+    width: 100%;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 1px;
+    overflow: hidden;
+}
+
+.homeview-drive-bar-fill {
+    height: 100%;
+    border-radius: 1px;
+    background: var(--text-muted);
+}
+
+.homeview-drive-bar-fill.critical {
+    background: #ef4444;
+}
+
+.homeview-drive-space {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-weight: 400;
+}

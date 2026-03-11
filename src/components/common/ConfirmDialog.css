@@ -1,0 +1,127 @@
+.confirm-dialog-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    z-index: 100002;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.confirm-dialog-container {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    width: 400px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    color: var(--text-primary);
+    font-family: var(--font-family);
+}
+
+.confirm-dialog-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px 12px;
+}
+
+.confirm-dialog-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14.5px;
+    font-weight: 500;
+}
+
+.confirm-dialog-title.type-warning {
+    color: #f59e0b;
+}
+
+.confirm-dialog-title.type-danger {
+    color: #ef4444;
+}
+
+.confirm-dialog-title.type-info {
+    color: var(--accent);
+}
+
+.confirm-dialog-close {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+    border-radius: 6px;
+    transition: background 0.15s, color 0.15s;
+}
+
+.confirm-dialog-close:hover {
+    background: var(--bg-hover);
+    color: var(--text-primary);
+}
+
+.confirm-dialog-body {
+    padding: 0 20px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.confirm-dialog-body p {
+    margin: 0;
+    font-size: 13.5px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+.confirm-dialog-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.confirm-dialog-btn {
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+}
+
+.confirm-dialog-btn.secondary {
+    background: transparent;
+    color: var(--text-secondary);
+}
+
+.confirm-dialog-btn.secondary:hover {
+    background: var(--bg-hover);
+    color: var(--text-primary);
+}
+
+.confirm-dialog-btn.primary {
+    background: var(--accent);
+    color: var(--bg-base);
+}
+
+.confirm-dialog-btn.primary:hover {
+    background: color-mix(in srgb, var(--accent) 85%, white);
+}
+
+.confirm-dialog-btn.primary.danger {
+    background: #ef4444;
+    color: white;
+}
+
+.confirm-dialog-btn.primary.danger:hover {
+    background: #dc2626;
+}

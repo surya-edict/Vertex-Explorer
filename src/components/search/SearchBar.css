@@ -1,0 +1,101 @@
+.searchbar {
+    background: rgba(255, 255, 255, 0.015);
+    border-bottom: 1px solid var(--border-subtle);
+    padding: 7px 8px 6px;
+    flex-shrink: 0;
+}
+
+.searchbar-input-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-subtle);
+    border-radius: 11px;
+    padding: 5px 8px;
+    margin-bottom: 6px;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.searchbar-input-row:focus-within {
+    border-color: rgba(45, 205, 195, 0.45);
+    box-shadow: 0 0 0 3px rgba(45, 205, 195, 0.12);
+}
+
+.searchbar-icon {
+    color: var(--text-muted);
+    flex-shrink: 0;
+}
+
+.searchbar-input {
+    flex: 1;
+    background: none;
+    border: none;
+    outline: none;
+    color: var(--text-primary);
+    font-size: 12.5px;
+    font-family: var(--font-family);
+}
+
+.searchbar-input::placeholder {
+    color: var(--text-muted);
+}
+
+.searchbar-spinner {
+    width: 12px;
+    height: 12px;
+    border: 1.5px solid var(--border);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    flex-shrink: 0;
+}
+
+.searchbar-clear {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-muted);
+    padding: 2px;
+    border-radius: 5px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+}
+
+.searchbar-clear:hover {
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.searchbar-filters {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+}
+
+.searchbar-filter {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-subtle);
+    border-radius: 999px;
+    color: var(--text-secondary);
+    font-size: 10.5px;
+    font-family: var(--font-family);
+    padding: 3px 9px;
+    cursor: pointer;
+    transition: background var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+}
+
+.searchbar-filter:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--text-primary);
+}
+
+.searchbar-filter--active {
+    background: var(--accent-muted);
+    border-color: rgba(45, 205, 195, 0.5);
+    color: var(--accent);
+}

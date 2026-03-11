@@ -1,0 +1,537 @@
+.quicklook-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(4, 8, 14, 0.68);
+    backdrop-filter: blur(16px) saturate(1.2);
+    -webkit-backdrop-filter: blur(16px) saturate(1.2);
+    /* Avoid animating backdrop-filter (causes big repaints / jitter) */
+    transition: background 0.2s ease;
+    will-change: opacity;
+}
+
+@keyframes ql-fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.quicklook-container {
+    position: relative;
+    width: min(var(--ql-width, 94vw), 1280px);
+    max-height: var(--ql-height, 92vh);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent 25%), var(--bg-elevated);
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    will-change: transform, opacity;
+    contain: layout style;
+}
+
+@keyframes ql-scale-in {
+    from {
+        transform: scale(0.92);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.quicklook-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--border-subtle);
+    background: rgba(255, 255, 255, 0.02);
+    flex-shrink: 0;
+}
+
+.quicklook-filename {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.quicklook-meta {
+    font-size: 11px;
+    color: var(--text-muted);
+    flex-shrink: 0;
+}
+
+.quicklook-open-btn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 10px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: transparent;
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background var(--transition-fast), color var(--transition-fast);
+    flex-shrink: 0;
+    font-family: var(--font-family);
+}
+
+.quicklook-open-btn:hover {
+    background: var(--accent-muted);
+    color: var(--accent-hover);
+}
+
+.quicklook-close {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid var(--border-subtle);
+    color: var(--text-secondary);
+    border-radius: 8px;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+    flex-shrink: 0;
+}
+
+.quicklook-close:hover {
+    background: rgba(227, 104, 104, 0.16);
+    border-color: rgba(227, 104, 104, 0.35);
+    color: #ff9a9a;
+}
+
+.quicklook-zoom-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0 12px;
+    background: rgba(255, 255, 255, 0.04);
+    padding: 4px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border-subtle);
+}
+
+.quicklook-zoom-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: color var(--transition-fast);
+    padding: 2px;
+}
+
+.quicklook-zoom-btn:hover {
+    color: var(--accent);
+}
+
+.quicklook-zoom-slider {
+    width: 100px;
+    accent-color: var(--accent);
+    cursor: ew-resize;
+    height: 4px;
+    outline: none;
+}
+
+.quicklook-zoom-text {
+    font-size: 11px;
+    color: var(--text-muted);
+    min-width: 38px;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    user-select: none;
+}
+
+.quicklook-body {
+    flex: 1;
+    overflow: auto;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Center media (images, videos, unsupported) */
+.quicklook-body>img,
+.quicklook-body>.video-player,
+.quicklook-body>.quicklook-unsupported {
+    align-self: center;
+    margin: auto;
+}
+
+/* Document previews fill available space */
+.quicklook-body>.docx-preview,
+.quicklook-body>.xlsx-preview,
+.quicklook-body>.pdf-preview,
+.quicklook-body>.audio-player-container {
+    flex: 1;
+    min-height: 0;
+}
+
+.quicklook-image {
+    width: calc(100% * var(--ql-zoom, 1));
+    height: calc(100% * var(--ql-zoom, 1));
+    object-fit: contain;
+    border-radius: 4px;
+}
+
+.quicklook-video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 4px;
+}
+
+.quicklook-text {
+    width: 100%;
+    padding: 16px 20px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.2px;
+    line-height: 1.7;
+    color: var(--text-primary);
+    white-space: pre-wrap;
+    word-break: break-word;
+    overflow-y: auto;
+    max-height: calc(var(--ql-height, 92vh) - 80px);
+    tab-size: 4;
+}
+
+.quicklook-markdown {
+    width: 100%;
+    padding: 20px 24px;
+    color: var(--text-primary);
+    font-size: 13px;
+    line-height: 1.75;
+    overflow-y: auto;
+    max-height: calc(var(--ql-height, 92vh) - 80px);
+}
+
+.quicklook-markdown h1,
+.quicklook-markdown h2,
+.quicklook-markdown h3 {
+    margin-top: 14px;
+    margin-bottom: 8px;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.quicklook-markdown h1 {
+    font-size: 21px;
+}
+
+.quicklook-markdown h2 {
+    font-size: 17px;
+}
+
+.quicklook-markdown h3 {
+    font-size: 14px;
+}
+
+.quicklook-markdown p {
+    margin-bottom: 10px;
+}
+
+.quicklook-markdown code {
+    background: rgba(255, 255, 255, 0.08);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+}
+
+.quicklook-markdown pre {
+    background: rgba(0, 0, 0, 0.24);
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    padding: 12px 16px;
+    overflow-x: auto;
+    margin: 10px 0;
+}
+
+.quicklook-markdown pre code {
+    background: none;
+    padding: 0;
+}
+
+.quicklook-unsupported {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 60px 40px;
+    color: var(--text-muted);
+    text-align: center;
+}
+
+.quicklook-unsupported-icon {
+    font-size: 44px;
+    opacity: 0.45;
+}
+
+.quicklook-unsupported-text {
+    font-size: 12.5px;
+}
+
+.quicklook-hint {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-subtle);
+    border-radius: 10px;
+    padding: 7px 14px;
+    font-size: 11px;
+    color: var(--text-muted);
+    backdrop-filter: blur(10px);
+    z-index: 10000;
+    animation: ql-fade-in 0.25s ease-out 0.2s backwards;
+}
+
+.quicklook-hint kbd {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--border-subtle);
+    border-radius: 4px;
+    padding: 1px 6px;
+    font-size: 10px;
+    font-family: inherit;
+    margin: 0 2px;
+}
+
+.quicklook-open-external {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 8px;
+    padding: 6px 16px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: transparent;
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+    font-family: var(--font-family);
+}
+
+.quicklook-open-external:hover {
+    background: var(--accent-muted);
+    color: var(--accent-hover);
+}
+
+.quicklook-image-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.quicklook-ctx {
+    position: fixed;
+    z-index: 10001;
+    background: color-mix(in srgb, var(--bg-elevated) 88%, transparent);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    padding: 6px;
+    min-width: 200px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+}
+
+.quicklook-ctx-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 8px 12px;
+    border: none;
+    background: transparent;
+    color: var(--text-primary);
+    font-size: 13px;
+    font-family: var(--font-family);
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.1s, color 0.1s;
+}
+
+.quicklook-ctx-item:hover {
+    background: var(--accent);
+    color: white;
+}
+
+.quicklook-ctx-item svg {
+    opacity: 0.7;
+    flex-shrink: 0;
+}
+
+.quicklook-ctx-item:hover svg {
+    opacity: 1;
+}
+
+.quicklook-ctx-divider {
+    height: 1px;
+    background: var(--border-subtle);
+    margin: 4px 6px;
+}
+
+/* ─── Image Gallery Navigation ─── */
+.quicklook-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(8px);
+    color: rgba(255, 255, 255, 0.9);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 20;
+    opacity: 0.7;
+    transition: opacity 0.2s, background 0.15s, transform 0.15s;
+}
+
+.quicklook-nav:hover {
+    opacity: 1;
+    background: rgba(0, 0, 0, 0.75);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.quicklook-nav:active {
+    transform: translateY(-50%) scale(0.95);
+}
+
+.quicklook-nav--prev {
+    left: 8px;
+}
+
+.quicklook-nav--next {
+    right: 8px;
+}
+
+/* ─── Picture in Picture (PIP) Mode ─── */
+.quicklook-overlay--pip {
+    background: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    pointer-events: none;
+}
+
+.quicklook-overlay--pip .quicklook-container {
+    pointer-events: auto;
+    position: relative;
+    overflow: hidden;
+    min-width: 250px;
+    min-height: 150px;
+    max-width: 90vw;
+    max-height: 90vh;
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.quicklook-overlay--pip .quicklook-header {
+    cursor: grab;
+    padding: 8px 12px;
+}
+
+.quicklook-overlay--pip .quicklook-header:active {
+    cursor: grabbing;
+}
+
+.quicklook-overlay--pip .quicklook-filename {
+    font-size: 12px;
+}
+
+.quicklook-overlay--pip .quicklook-open-btn {
+    padding: 3px 8px;
+    font-size: 11px;
+}
+
+.quicklook-overlay--pip .quicklook-zoom-bar {
+    display: none;
+}
+
+.quicklook-overlay--pip .quicklook-nav {
+    display: none;
+}
+
+.quicklook-overlay--pip .quicklook-hint {
+    display: none;
+}
+
+.ql-resize {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    z-index: 100;
+}
+
+.ql-resize.top-left {
+    top: -2px;
+    left: -2px;
+    cursor: nwse-resize;
+}
+
+.ql-resize.top-right {
+    top: -2px;
+    right: -2px;
+    cursor: nesw-resize;
+}
+
+.ql-resize.bottom-left {
+    bottom: -2px;
+    left: -2px;
+    cursor: nesw-resize;
+}
+
+.ql-resize.bottom-right {
+    bottom: -2px;
+    right: -2px;
+    cursor: nwse-resize;
+}
+
+.ql-resize.bottom-right::after {
+    content: '';
+    position: absolute;
+    bottom: 6px;
+    right: 6px;
+    width: 8px;
+    height: 8px;
+    border-right: 2px solid rgba(255, 255, 255, 0.4);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.4);
+    border-radius: 1px;
+    pointer-events: none;
+    transition: border-color 0.2s;
+}
+
+.ql-resize.bottom-right:hover::after {
+    border-color: rgba(255, 255, 255, 0.85);
+}

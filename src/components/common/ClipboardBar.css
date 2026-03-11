@@ -1,0 +1,200 @@
+.clipboard-bar {
+    position: fixed;
+    bottom: 60px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px 0 20px;
+    height: 52px;
+    min-width: 520px;
+    background: rgba(13, 17, 23, 0.82);
+    backdrop-filter: blur(28px) saturate(200%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 14px;
+    color: var(--text-primary);
+    box-shadow:
+        0 10px 40px -10px rgba(0, 0, 0, 0.7),
+        inset 0 1px 1px rgba(255, 255, 255, 0.05);
+    z-index: 1000;
+    user-select: none;
+}
+
+.clipboard-bar--entering {
+    animation: clipEnter 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.clipboard-bar--exiting {
+    animation: clipExit 0.3s cubic-bezier(0.4, 0, 1, 1) forwards;
+    pointer-events: none;
+}
+
+@keyframes clipEnter {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes clipExit {
+    from {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+    }
+}
+
+.clipboard-bar-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    color: #38bdf8;
+}
+
+.clipboard-bar-icon {
+    filter: drop-shadow(0 0 12px rgba(56, 189, 248, 0.5));
+}
+
+.clipboard-bar-text {
+    font-size: 13.5px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.clipboard-bar-badge {
+    background: rgba(56, 189, 248, 0.12);
+    color: #7dd3fc;
+    padding: 3px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    border: 1px solid rgba(56, 189, 248, 0.15);
+}
+
+.clipboard-bar-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.clipboard-bar-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 14px;
+    height: 32px;
+    background: transparent;
+    border: none;
+    border-radius: 8px;
+    color: var(--text-secondary);
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.clipboard-bar-btn:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--text-primary);
+}
+
+.clipboard-bar-btn:active {
+    transform: scale(0.96);
+}
+
+.clipboard-bar-btn.active {
+    background: rgba(56, 189, 248, 0.1);
+    color: #38bdf8;
+}
+
+.clipboard-bar-btn-paste {
+    background: #0ea5e9 !important;
+    color: white !important;
+    box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);
+}
+
+.clipboard-bar-btn-paste:hover {
+    background: #0284c7 !important;
+    transform: translateY(-1px);
+}
+
+.clipboard-bar-btn-discard {
+    padding: 0 16px;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.clipboard-bar-btn-discard:hover {
+    background: rgba(239, 68, 68, 0.12);
+    color: #f87171;
+}
+
+/* Popover Refinement */
+.clipboard-items-popover {
+    position: absolute;
+    bottom: calc(100% + 16px);
+    right: 0;
+    width: 300px;
+    max-height: 320px;
+    background: rgba(30, 41, 59, 0.95);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 1001;
+    color: var(--text-primary);
+}
+
+.clipboard-items-header {
+    padding: 16px 16px 10px;
+    font-size: 11px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.clipboard-items-list {
+    padding: 8px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.clipboard-item-row {
+    padding: 10px 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.8);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: flex;
+    align-items: center;
+    transition: all 0.2s ease;
+    cursor: default;
+    background: transparent;
+}
+
+.clipboard-item-row:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+    transform: translateX(4px);
+}

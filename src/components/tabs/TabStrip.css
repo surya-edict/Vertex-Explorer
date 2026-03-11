@@ -1,0 +1,364 @@
+.tabstrip {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    height: 40px;
+    padding: 0 8px;
+    background: color-mix(in srgb, var(--bg-surface) 70%, transparent);
+    border-bottom: 1px solid color-mix(in srgb, var(--border-subtle) 55%, transparent);
+    -webkit-app-region: drag;
+}
+
+.panel[data-transparent="true"] .tabstrip {
+    background: transparent;
+    border-bottom-color: transparent;
+}
+
+.tabstrip-tabs {
+    display: flex;
+    align-items: stretch;
+    overflow-x: auto;
+    overflow-y: hidden;
+    flex: 1;
+    min-width: 0;
+    scrollbar-width: none;
+}
+
+.tabstrip-tabs::-webkit-scrollbar {
+    display: none;
+}
+
+.tabstrip-tab {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    margin: 4px 3px;
+    min-width: 96px;
+    max-width: 260px;
+    cursor: grab;
+    color: var(--text-secondary);
+    font-size: 13px;
+    font-weight: 500;
+    border-radius: 8px;
+    background: color-mix(in srgb, var(--bg-elevated) 60%, transparent);
+    border: 1px solid color-mix(in srgb, var(--border-subtle) 52%, transparent);
+    position: relative;
+    flex-shrink: 0;
+    -webkit-app-region: no-drag;
+    transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+    transform-origin: left center;
+}
+
+.panel[data-transparent="true"] .tabstrip-tab {
+    background: rgba(0, 0, 0, 0.18);
+    border-color: rgba(255, 255, 255, 0.08);
+}
+
+.tabstrip-tab:active {
+    cursor: grabbing;
+    transform: scale(0.985);
+}
+
+.tabstrip-tab:hover {
+    background: color-mix(in srgb, var(--bg-elevated) 76%, transparent);
+    border-color: color-mix(in srgb, var(--border-focus) 70%, transparent);
+    color: var(--text-primary);
+}
+
+.tabstrip-tab--active {
+    background: color-mix(in srgb, var(--bg-selected) 86%, transparent);
+    color: var(--text-primary);
+    border-color: color-mix(in srgb, var(--accent) 55%, transparent);
+}
+
+.panel[data-transparent="true"] .tabstrip-tab--active {
+    background: rgba(0, 0, 0, 0.28);
+    border-color: rgba(255, 255, 255, 0.12);
+}
+
+.tabstrip-tab-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--accent);
+}
+
+.tabstrip-tab-label {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.tabstrip-tab-close {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    color: var(--text-secondary);
+    opacity: 0;
+    transition: opacity var(--transition-fast), background var(--transition-fast), color var(--transition-fast);
+}
+
+.tabstrip-tab:hover .tabstrip-tab-close,
+.tabstrip-tab--active .tabstrip-tab-close {
+    opacity: 1;
+}
+
+.tabstrip-tab-close:hover {
+    background: color-mix(in srgb, var(--error) 16%, transparent);
+    color: color-mix(in srgb, var(--error) 86%, white);
+}
+
+.tabstrip-newtab {
+    width: 32px;
+    height: 28px;
+    margin: 4px 3px;
+    flex-shrink: 0;
+    background: color-mix(in srgb, var(--bg-elevated) 56%, transparent);
+    border: 1px solid color-mix(in srgb, var(--border-subtle) 52%, transparent);
+    border-radius: 8px;
+    color: var(--text-muted);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+    -webkit-app-region: no-drag;
+}
+
+.tabstrip-newtab:hover {
+    background: color-mix(in srgb, var(--bg-elevated) 74%, transparent);
+    border-color: color-mix(in srgb, var(--border-focus) 70%, transparent);
+    color: var(--text-primary);
+}
+
+.tabstrip-panel-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 4px;
+    margin-left: auto;
+    flex-shrink: 0;
+    -webkit-app-region: no-drag;
+}
+
+.tabstrip-panel-actions .panel-viewmode {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    background: rgba(255, 255, 255, 0.04);
+    padding: 2px;
+    border-radius: 5px;
+    border: 1px solid var(--border-subtle);
+}
+
+.tabstrip-panel-actions .panel-viewmode-btn {
+    width: 28px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    border-radius: 3px;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.tabstrip-panel-actions .panel-viewmode-btn:hover {
+    background: var(--bg-hover);
+    color: var(--text-primary);
+}
+
+.tabstrip-panel-actions .panel-viewmode-btn--active {
+    background: var(--bg-selected);
+    color: var(--text-primary);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.tabstrip-panel-actions .panel-zoom-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.tabstrip-panel-actions .panel-zoom-btn {
+    width: 28px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--border-subtle);
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: background var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.tabstrip-panel-actions .panel-zoom-btn:hover {
+    background: var(--bg-hover);
+    color: var(--text-primary);
+}
+
+.tabstrip-panel-actions .panel-zoom-btn--active {
+    color: var(--accent);
+    border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+    background: color-mix(in srgb, var(--accent) 14%, transparent);
+}
+
+.tabstrip-panel-actions .panel-zoom-popup {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    z-index: 40;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px;
+    border-radius: 8px;
+    border: 1px solid var(--border-subtle);
+    background: color-mix(in srgb, var(--bg-elevated) 92%, transparent);
+    backdrop-filter: blur(12px);
+    box-shadow: var(--shadow-md);
+}
+
+.tabstrip-panel-actions .panel-zoom-popup::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 0;
+    right: 0;
+    height: 10px;
+}
+
+.tabstrip-panel-actions .panel-zoom-slider {
+    width: 110px;
+    height: 4px;
+    -webkit-appearance: none;
+    appearance: none;
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 999px;
+    outline: none;
+    cursor: pointer;
+}
+
+.tabstrip-panel-actions .panel-zoom-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid rgba(255, 255, 255, 0.35);
+    transition: transform 0.1s ease;
+}
+
+.tabstrip-panel-actions .panel-zoom-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.18);
+}
+
+.tabstrip-panel-actions .panel-zoom-pct {
+    min-width: 34px;
+    text-align: right;
+    font-size: 10px;
+    color: var(--text-secondary);
+}
+
+/* ── Search in TabStrip ── */
+.tabstrip-panel-actions .search-container {
+    display: flex;
+    align-items: center;
+    background: transparent;
+    border-radius: 4px;
+    height: 26px;
+    padding: 0 6px;
+    gap: 0;
+    border: 1px solid transparent;
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), background 0.2s ease;
+    overflow: hidden;
+    width: 28px;
+    -webkit-app-region: no-drag;
+}
+
+.tabstrip-panel-actions .search-container--active {
+    background: rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.1);
+    width: 200px;
+    gap: 6px;
+    padding: 0 8px;
+}
+
+.tabstrip-panel-actions .search-toggle-icon {
+    color: var(--text-muted);
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.tabstrip-panel-actions .search-toggle-icon:hover {
+    color: var(--text-primary);
+    transform: scale(1.1);
+}
+
+.tabstrip-panel-actions .search-container--active .search-toggle-icon {
+    color: var(--accent);
+}
+
+.search-input-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex: 1;
+    min-width: 0;
+}
+
+.tab-search-input {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--text-primary);
+    font-size: 12px;
+    flex: 1;
+    min-width: 0;
+}
+
+.tab-search-input::placeholder {
+    color: var(--text-muted);
+}
+
+.search-clear-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 2px;
+    border-radius: 3px;
+    flex-shrink: 0;
+    transition: color 0.15s, background 0.15s;
+}
+
+.search-clear-btn:hover {
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.tabstrip-divider {
+    width: 1px;
+    height: 16px;
+    background: var(--border, rgba(255, 255, 255, 0.08));
+    margin: 0 4px;
+    flex-shrink: 0;
+}

@@ -1,0 +1,11 @@
+pub mod batch_rename;
+pub mod context_cmds;
+pub mod convert;
+pub mod fs_ops;
+pub mod icons;
+pub mod mft_index;
+pub mod native_menu;
+pub mod scores;
+pub mod search;
+pub mod system;
+pub mod watcher;
